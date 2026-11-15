@@ -1,5 +1,5 @@
 import numpy as np
-from structures import BitArray
+from .structures import BitArray
 
 """
 Simula a camada de aplicação/apresentação entregando o fluxo de dados bruto.

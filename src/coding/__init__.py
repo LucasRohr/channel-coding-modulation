@@ -1,0 +1,1 @@
+# Arquivo somente para marcar o diretório de codificação como um pacote Python.
