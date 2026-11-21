@@ -1,0 +1,62 @@
+==============================================================================
+SIMULADOR DE CODIFICACAO DE CANAL E MODULACAO DIGITAL - REDES II
+==============================================================================
+
+[ETAPA 1] TRANSMISSAO DE MENSAGEM ASCII
+Mensagem Original : 'UNISINOS 2026 - Redes de Computadores II: Camada Fisica e Enlace'
+Tamanho em Bytes  : 64 bytes (512 bits)
+Primeiros 32 bits : 01010101010011100100100101010011...
+
+--- Teste ASCII sob Eb/N0 = 3.0 dB ---
+  BPSK Nao Codificado        | Erros:  16/512 | BER: 0.03125 | Rx: 'UNISILS 2026!- rude3 dm CompTta$ores II: ...'
+  QPSK Nao Codificado        | Erros:  11/512 | BER: 0.02148 | Rx: 'UNISINOS 2026 - Redes dä Com`utadraó II: ...'
+  Hamming(7,4) + QPSK        | Erros:  10/512 | BER: 0.01953 | Rx: 'UNISINOS 2026 - Redes&de ComðtAdores AI: ...'
+  AMI Bipolar (Banda Base)   | Erros:  52/512 | BER: 0.10156 | Rx: 'UNYSMÞÏ*rð27`-`Ru`e{ de omputadgveq ÉK* ...'
+
+--- Teste ASCII sob Eb/N0 = 7.0 dB ---
+  BPSK Nao Codificado        | Erros:   1/512 | BER: 0.00195 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  QPSK Nao Codificado        | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  Hamming(7,4) + QPSK        | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  AMI Bipolar (Banda Base)   | Erros:   5/512 | BER: 0.00977 | Rx: 'UNÉSINOR 2 26 - Rmdes de Computadores II: ...'
+
+--- Teste ASCII sob Eb/N0 = 11.0 dB ---
+  BPSK Nao Codificado        | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  QPSK Nao Codificado        | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  Hamming(7,4) + QPSK        | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+  AMI Bipolar (Banda Base)   | Erros:   0/512 | BER: 0.00000 | Rx: 'UNISINOS 2026 - Redes de Computadores II: ...'
+
+[ETAPA 2] SIMULACAO MONTE CARLO (BER x Eb/N0)
+Executando varredura Monte Carlo: BPSK...
+Executando varredura Monte Carlo: QPSK...
+Executando varredura Monte Carlo: Hamming(7,4) + BPSK...
+Executando varredura Monte Carlo: Hamming(7,4) + QPSK...
+Executando varredura Monte Carlo: Manchester + BPSK...
+Executando varredura Monte Carlo: AMI Bipolar (Banda Base)...
+Executando varredura Monte Carlo: Hamming(7,4) + BPSK (Rajada)...
+
+Eb/N0 [dB] |           BPSK |           QPSK | Hamming(7,4) + | Hamming(7,4) + | Manchester + B | AMI Bipolar (B | Hamming(7,4) +
+---------------------------------------------------------------------------------------------------------------------------------
+       0.0 |       0.078240 |       0.077340 |       0.115880 |       0.119660 |       1.000000 |       0.234720 |       0.133900
+       1.5 |       0.047860 |       0.047060 |       0.068820 |       0.068500 |       1.000000 |       0.176760 |       0.089640
+       3.0 |       0.022880 |       0.022000 |       0.031460 |       0.033920 |       1.000000 |       0.121160 |       0.050020
+       4.5 |       0.008680 |       0.008820 |       0.010640 |       0.010380 |       1.000000 |       0.070240 |       0.030940
+       6.0 |       0.002600 |       0.002350 |       0.002630 |       0.002530 |       1.000000 |       0.033620 |       0.022720
+       7.5 |       0.000385 |       0.000438 |       0.000272 |       0.000310 |       1.000000 |       0.013120 |       0.018960
+       9.0 |       0.000028 |       0.000039 |       0.000015 |       0.000010 |       1.000000 |       0.003360 |       0.018780
+      10.5 |       0.000001 |       0.000004 |       0.000002 |       0.000002 |       1.000000 |       0.000608 |       0.018160
+
+[ETAPA 3] ANALISE DE EFICIENCIA ESPECTRAL E CAPACIDADE (B = 1 MHz)
+Esquema                      | k (bits/simb) |  Taxa Rc | Ef. Nom [bps/Hz] | Ef. Efet [bps/Hz] | Taxa Util [Mbps] | Shannon Min Eb/N0
+-------------------------------------------------------------------------------------------------------------------------------------
+BPSK Nao Codificado          |             1 |    1.000 |             1.00 |             1.000 |            1.000 |           0.00 dB
+QPSK Nao Codificado (Gray)   |             2 |    1.000 |             2.00 |             2.000 |            2.000 |           1.76 dB
+Hamming(7,4) + BPSK          |             1 |    0.571 |             1.00 |             0.571 |            0.571 |          -0.70 dB
+Hamming(7,4) + QPSK          |             2 |    0.571 |             2.00 |             1.143 |            1.143 |           0.24 dB
+Manchester + BPSK            |             1 |    0.500 |             1.00 |             0.500 |            0.500 |          -0.82 dB
+AMI Bipolar (Banda Base)     |             1 |    1.000 |             1.00 |             1.000 |            1.000 |           0.00 dB
+
+[ETAPA 4] GERACAO DE GRAFICOS ANALITICOS
+ -> Gráfico salvo: outputs/01_ber_vs_snr_modulations.png
+ -> Gráfico salvo: outputs/02_ber_vs_snr_coding_impact.png
+ -> Gráfico salvo: outputs/03_iq_constellations.png
+ -> Gráfico salvo: outputs/04_baseband_waveforms.png

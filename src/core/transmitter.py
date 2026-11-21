@@ -82,11 +82,13 @@ class Transmitter:
         else:
             # Transmissão direta em Banda Base caso não haja modulador definido
             self._mod_padding_bits = 0
+
+            # Se o codec for AMI, os níveis de saída são pseudoternários {-1.0, 0.0, +1.0}
             if isinstance(self.codec, AMICodec):
                 # Níveis pseudoternários {-1.0, 0.0, +1.0}
                 tx_signal = encoded_stream.astype(np.complex128)
             else:
-                # Mapeamento NRZ Polar: 0 -> +1.0 V, 1 -> -1.0 V[cite: 257]
+                # Caso contrário, aplica mapeamento NRZ Polar: 0 -> +1.0 V, 1 -> -1.0 V
                 tx_signal = np.where(encoded_stream == 0, 1.0, -1.0).astype(np.complex128)
 
         # Retorna o sinal complexo transmitido e o fluxo codificado (com ou sem bits de preenchimento)
